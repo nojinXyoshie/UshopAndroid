@@ -10,9 +10,6 @@ import androidx.viewpager.widget.PagerAdapter
 import com.example.ushop.R
 import java.util.ArrayList
 
-/**
- * Created by: Tisto
- */
 class AdapterSlider(var data: ArrayList<Int>, var context: Activity?) : PagerAdapter() {
     lateinit var layoutInflater: LayoutInflater
 
