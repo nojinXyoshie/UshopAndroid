@@ -11,7 +11,7 @@ import com.example.ushop.model.Produk
 
 class AdapterProduk(var data:ArrayList<Produk>): RecyclerView.Adapter<AdapterProduk.Holder>() {
 
-    class Holder(view: View): RecyclerView.ViewHolder(view){
+    class Holder(view: View): RecyclerView.ViewHolder(view) {
         val tvNama = view.findViewById<TextView>(R.id.tv_nama)
         val tvHarga = view.findViewById<TextView>(R.id.tv_harga)
         val imgProduk = view.findViewById<ImageView>(R.id.img_produk)

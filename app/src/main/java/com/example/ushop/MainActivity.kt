@@ -1,14 +1,17 @@
 package com.example.ushop
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.example.ushop.activity.LoginActivity
 import com.example.ushop.fragment.AkunFragment
 import com.example.ushop.fragment.BerandaFragment
 import com.example.ushop.fragment.KeranjangFragment
+import com.example.ushop.helper.SharedPref
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -23,9 +26,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var menuItem: MenuItem
     private lateinit var bottomNavigationView: BottomNavigationView
 
+    private var statusLogin = false
+
+    private lateinit var s:SharedPref
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        s = SharedPref(this)
 
         setUpBottomNav()
     }
@@ -40,7 +49,7 @@ class MainActivity : AppCompatActivity() {
         menuItem = menu.getItem(0)
         menuItem.isChecked = true
 
-        bottomNavigationView.setOnNavigationItemReselectedListener { item ->
+        bottomNavigationView.setOnNavigationItemSelectedListener{ item ->
 
             when(item.itemId) {
                 R.id.navigation_beranda ->{
@@ -50,7 +59,11 @@ class MainActivity : AppCompatActivity() {
                     callFragment(1, fragmentKeranjang)
                 }
                 R.id.navigation_akun ->{
-                    callFragment(2, fragmentAkun)
+                    if (s.getStatusLogin()) {
+                        callFragment(2, fragmentAkun)
+                    } else {
+                        startActivity(Intent(this, LoginActivity::class.java))
+                    }
                 }
             }
             false
